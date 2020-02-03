@@ -1,0 +1,33 @@
+{
+  "name": "cypress-storybook",
+  "version": "0.0.1",
+  "description": "Cypress commands for Storybook projects",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test",
+    "start": "npm run storybook",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "keywords": [
+    "cypress",
+    "storybook",
+    "testing"
+  ],
+  "author": "nicholas.boll@gmail.com",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "@storybook/addon-actions": "^5.3.10",
+    "@storybook/addon-links": "^5.3.10",
+    "@storybook/addons": "^5.3.10",
+    "@storybook/react": "^5.3.10",
+    "babel-loader": "^8.0.6",
+    "cypress": "^3.8.3",
+    "react": "^16.12.0"
+  },
+  "peerDependencies": {
+    "cypress": "*"
+  },
+  "dependencies": {}
+}
