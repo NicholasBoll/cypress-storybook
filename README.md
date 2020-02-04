@@ -21,7 +21,7 @@ import 'cypress-storybook/cypress`
 
 #### React Storybook
 
-The following will set up the Storybook app to understand the Cypress commands. It will register hidden functions one the `window` of the iframe Storybook uses for stories:
+The following will set up the Storybook app to understand the Cypress commands. It will register hidden functions on the `window` of the iframe Storybook uses for stories:
 
 ```js
 // .storybook/config.js
