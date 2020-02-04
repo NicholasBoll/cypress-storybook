@@ -30,7 +30,7 @@ import 'cypress-storybook/react'
 
 ### Use
 
-Storybook is a great tool for developing UI. It encourages separation of UI development from backend development. It also encourages building smaller components. Cypress can be used to test or specify behavior of these components. Many examples on the web show loading up the main Storybook application and using Cypress to click through the navigation to enable the proper story. The issue with this approach is the story is in an iframe, which is much more difficult to work with. Storybook comes with a router that allows you to visit the story directly. If you expand a story to a full screen, you'll see the URL. It contains something like `iframe.html?id=button--text`.
+Storybook is a great tool for developing UI. It encourages separation of UI development from backend development. It also encourages building smaller components. Cypress can be used to test or specify behavior of these components. Many examples on the web show loading the main Storybook application and using Cypress to click through the navigation to enable the proper story. The issue with this approach is the story is in an iframe, which is much more difficult to work with. Storybook comes with a router that allows you to visit the story directly. If you expand a story to a full screen, you'll see the URL. It contains something like `iframe.html?id=button--text`.
 
 This library works by loading the `iframe.html` which is blank since no story has been specified. Stories are later mounted using the Storybook routing API to unmount and mount/remount stories by their identifiers. Loading stories does not require a refresh of the Story page (`iframe.html`). The previous story is unmounted from the DOM and the next story is requested from the Storybook router API. Mounting a story takes milliseconds compared to seconds of reloading the entire page. This allows for faster tests.
 
@@ -40,11 +40,13 @@ An example Cypress file might look like this:
 
 ```js
 describe('Button', () => {
+  // Note the use of `before`
   before(() => {
-    // Visit the storybook iframe page
+    // Visit the storybook iframe page once per file
     cy.visitStorybook()
   })
 
+  // Note the use of `beforeEach`
   beforeEach(() => {
     // The first parameter is the category. This is the `title` in CSF or the value in `storiesOf`
     // The second parameter is the name of the story. This is the name of the function in CSF or the value in the `add`
