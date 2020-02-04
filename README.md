@@ -15,7 +15,7 @@ Once installed, both Cypress and Storybook need to be configured in order to wor
 The following will add the Cypress commands to be available to Cypress spec files:
 
 ```js
-// cypress/cupport/commands.js or .ts
+// cypress/support/index.js or .ts
 import 'cypress-storybook/cypress`
 ```
 
