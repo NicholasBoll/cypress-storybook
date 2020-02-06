@@ -16,7 +16,7 @@ The following will add the Cypress commands to be available to Cypress spec file
 
 ```js
 // cypress/support/index.js or .ts
-import 'cypress-storybook/cypress`
+import 'cypress-storybook/cypress'
 ```
 
 #### React Storybook
