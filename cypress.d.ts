@@ -18,5 +18,12 @@ declare namespace Cypress {
      * cy.loadStory('Button', 'Primary')
      */
     loadStory(categorization: string, story: string): Cypress.Chainable<JQuery>
+
+    /**
+     * Change a knob of your story. Useful for testing permutations of a story without creating unique ones.
+     * @param name Name of the knob provided in the story
+     * @param value Value of the knob. The type is not checked, so make sure it is valid for your story
+     */
+    changeKnob(name: string, value: any): Cypress.Chainable<null>
   }
 }

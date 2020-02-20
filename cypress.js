@@ -28,3 +28,29 @@ Cypress.Commands.add('loadStory', (categorization, story) => {
 
   return Cypress.$('#root')
 })
+
+Cypress.Commands.add('changeKnob', (name, value) => {
+  const log = Cypress.log({
+    name: 'Knob',
+    message: [name, value],
+    $el: Cypress.$('#root')
+  })
+
+  log.snapshot('before')
+
+  const win = cy.state('window')
+  const now = performance.now()
+
+  win.__changeKnob({ name, value })
+
+  log.set('consoleProps', () => ({
+    name,
+    value,
+    time: performance.now() - now
+  }))
+
+  log.snapshot('after')
+  log.end()
+
+  return null
+})

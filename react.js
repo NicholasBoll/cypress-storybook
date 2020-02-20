@@ -17,4 +17,12 @@ function clearCurrentStory() {
   ReactDOM.unmountComponentAtNode(root)
 }
 
+function changeKnob(changedKnob) {
+  addons.getChannel().emit('storybookjs/knobs/change', changedKnob)
+
+  // force story to rerender with updated knob
+  forceReRender()
+}
+
 window.__setCurrentStory = setCurrentStory
+window.__changeKnob = changeKnob
