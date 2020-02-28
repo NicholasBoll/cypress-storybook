@@ -1,6 +1,26 @@
 // @ts-check
 /// <reference path="../../cypress.d.ts" />
 
+describe('loadStorybook', () => {
+  before(() => {
+    cy.visitStorybook()
+  })
+
+  it('should load the right story', () => {
+    cy.loadStory('Button', 'Text')
+    cy.get('button').should('contain', 'Hello Button')
+  })
+
+  it('should reset any knobs', () => {
+    cy.loadStory('Button', 'Text')
+    cy.get('#knob').should('contain', 'Default Knob')
+    cy.changeKnob('text', 'Changed Text')
+    cy.get('#knob').should('contain', 'Changed Text')
+    cy.loadStory('Button', 'Text')
+    cy.get('#knob').should('contain', 'Default Knob')
+  })
+})
+
 describe('Button', () => {
   before(() => {
     cy.visitStorybook()

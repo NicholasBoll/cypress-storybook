@@ -9,6 +9,8 @@ function setCurrentStory(categorization, story) {
   addons.getChannel().emit(Events.SET_CURRENT_STORY, {
     storyId: toId(categorization, story)
   })
+  addons.getChannel().emit('storybookjs/knobs/reset')
+
   forceReRender()
 }
 
