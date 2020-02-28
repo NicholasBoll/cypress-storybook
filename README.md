@@ -36,6 +36,8 @@ This library works by loading the `iframe.html` which is blank since no story ha
 
 This library only works if Stories don't leave behind some global state. It is recommended that your stories provide their own state. If you use a global store like Redux, be sure that each story has its own store provider so that the store is created for each story.
 
+Knobs are also supported. It is possible to create a story where all properties are knob imports and change those inputs during a test.
+
 An example Cypress file might look like this:
 
 ```js
@@ -52,6 +54,13 @@ describe('Button', () => {
     // The second parameter is the name of the story. This is the name of the function in CSF or the value in the `add`
     // This does not refresh the page, but will unmount any previous story and use the Storybook Router API to render a fresh new story
     cy.loadStory('Button', 'Text')
+  })
+  
+  it('should change the knob', () => {
+    // first parameter is the name of the knob
+    // second parameter is the value of the knob
+    cy.changeKnob('buttonText', 'New Text Value')
+    cy.get('button').should('have.text', 'New Text Value')
   })
 })
 ```
