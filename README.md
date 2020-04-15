@@ -38,6 +38,8 @@ This library only works if Stories don't leave behind some global state. It is r
 
 Knobs are also supported. It is possible to create a story where all properties are knob imports and change those inputs during a test.
 
+Actions are supported as well. All emitted actions are collected and can be investigated using the `cy.loggedActions` command.
+
 An example Cypress file might look like this:
 
 ```js
