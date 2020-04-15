@@ -25,5 +25,14 @@ declare namespace Cypress {
      * @param value Value of the knob. The type is not checked, so make sure it is valid for your story
      */
     changeKnob(name: string, value: any): Cypress.Chainable<null>
+
+    /**
+     * Retrieve all actions that have been logged for a given action type.
+     * Returns an array of arguments for each invocation of the action.
+     * @param type The action type as passed into the `action` function. E.g. `click` for `action('click')('foo')`.
+     * @example
+     * cy.loggedActions('click').should('not.be.empty')
+     */
+    loggedActions(type: string): Cypress.Chainable<any[][]>
   }
 }

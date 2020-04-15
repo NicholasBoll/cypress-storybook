@@ -3,6 +3,7 @@ import addons from '@storybook/addons'
 import Events from '@storybook/core-events'
 import { toId } from '@storybook/router'
 import ReactDOM from 'react-dom'
+import { EVENT_ID } from '@storybook/addon-actions'
 
 function setCurrentStory(categorization, story) {
   clearCurrentStory()
@@ -17,6 +18,9 @@ function setCurrentStory(categorization, story) {
 function clearCurrentStory() {
   var root = document.querySelector('#root')
   ReactDOM.unmountComponentAtNode(root)
+
+  // Also reset logged actions.
+  window.___actions = [];
 }
 
 function changeKnob(changedKnob) {
@@ -28,3 +32,10 @@ function changeKnob(changedKnob) {
 
 window.__setCurrentStory = setCurrentStory
 window.__changeKnob = changeKnob
+
+// Collect actions emitted by storybook/addon-actions
+window.___actions = [];
+
+addons.getChannel().addListener(EVENT_ID, args => {
+  window.___actions.push(args);
+});

@@ -16,6 +16,7 @@ export const Text = () => {
     <React.Fragment>
       <Button
         onClick={() => {
+          action('click')('foo', 'bar')
           setClicked(true)
         }}
       >

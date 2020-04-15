@@ -44,6 +44,15 @@ describe('Button', () => {
         cy.get('#clicked').should('contain', 'clicked!')
       })
 
+      it('should collect an action for the button click', () => {
+        cy.loggedActions('click').should('not.be.empty');
+        cy.loggedActions('click').should('have.length', 1);
+        cy.loggedActions('click').should(args => {
+          expect(args[0]).to.contain('foo');
+          expect(args[0]).to.contain('bar');
+        });
+      })
+
       context('when the Button/Text story is re-rendered', () => {
         beforeEach(() => {
           cy.loadStory('Button', 'Text')
@@ -51,6 +60,7 @@ describe('Button', () => {
 
         it('should reset all state', () => {
           cy.get('button').should('not.contain', 'clicked')
+          cy.loggedActions('click').should('be.empty');
         })
       })
     })

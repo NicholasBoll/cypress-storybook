@@ -54,3 +54,10 @@ Cypress.Commands.add('changeKnob', (name, value) => {
 
   return null
 })
+
+Cypress.Commands.add('loggedActions', (type) => {
+  const win = cy.state('window')
+  return win.___actions
+    .filter(action => action.data.name === type)
+    .map(action => action.data.args);
+});
