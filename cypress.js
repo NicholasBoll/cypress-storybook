@@ -16,7 +16,7 @@ Cypress.Commands.add('loadStory', (categorization, story) => {
   const now = performance.now()
   win.__setCurrentStory(
     categorization.replace(/[|/]/g, '-').toLowerCase(),
-    story.replace(/\s/g, '-').toLowerCase()
+    story.replace(/\s/g, '-').replace(/([a-z0-9]|(?=[A-Z]))([A-Z])/g, '$1-$2').toLowerCase()
   )
   log.set('consoleProps', () => ({
     categorization,
