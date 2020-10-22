@@ -29,6 +29,8 @@ Make sure your `baseUrl` in the `cypress.json` is pointing to your Storybook. Fo
 
 If running these tests as part of a CI process, this base url will have to point to whereever the CI can reach the Storybook page.
 
+If your project has Cypress tests for both Storybook and true end-to-end, you may have to use separate `cypress.json` files for each environment that you're running. Cypress commands allow you to specify which config file: https://docs.cypress.io/guides/guides/command-line.html#cypress-open. For example, you may need to do something like `cypress open --config-file cypress-storybook.json`. You can alias this in an `npm` script like `npm run cypress:storybook:open`.
+
 #### React Storybook
 
 The following will set up the Storybook app to understand the Cypress commands. It will register hidden functions on the `window` of the iframe Storybook uses for stories:
