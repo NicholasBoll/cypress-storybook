@@ -19,6 +19,16 @@ The following will add the Cypress commands to be available to Cypress spec file
 import 'cypress-storybook/cypress'
 ```
 
+Make sure your `baseUrl` in the `cypress.json` is pointing to your Storybook. For development, this will most likely be `http://localhost:9001`.
+
+```json
+{
+  "baseUrl": "http://localhost:9001"
+}
+```
+
+If running these tests as part of a CI process, this base url will have to point to whereever the CI can reach the Storybook page.
+
 #### React Storybook
 
 The following will set up the Storybook app to understand the Cypress commands. It will register hidden functions on the `window` of the iframe Storybook uses for stories:
