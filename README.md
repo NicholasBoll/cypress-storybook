@@ -34,7 +34,7 @@ If running these tests as part of a CI process, this base url will have to point
 The following will set up the Storybook app to understand the Cypress commands. It will register hidden functions on the `window` of the iframe Storybook uses for stories:
 
 ```js
-// .storybook/config.js
+// .storybook/config.js (v5) or .storybook/preview.js (v6)
 import 'cypress-storybook/react'
 ```
 
