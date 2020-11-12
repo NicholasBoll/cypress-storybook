@@ -19,12 +19,24 @@ The following will add the Cypress commands to be available to Cypress spec file
 import 'cypress-storybook/cypress'
 ```
 
+Make sure your `baseUrl` in the `cypress.json` is pointing to your Storybook. For development, this will most likely be `http://localhost:9001`.
+
+```json
+{
+  "baseUrl": "http://localhost:9001"
+}
+```
+
+If running these tests as part of a CI process, this base url will have to point to whereever the CI can reach the Storybook page.
+
+If your project has Cypress tests for both Storybook and true end-to-end, you may have to use separate `cypress.json` files for each environment that you're running. Cypress commands allow you to specify which config file: https://docs.cypress.io/guides/guides/command-line.html#cypress-open. For example, you may need to do something like `cypress open --config-file cypress-storybook.json`. You can alias this in an `npm` script like `npm run cypress:storybook:open`.
+
 #### React Storybook
 
 The following will set up the Storybook app to understand the Cypress commands. It will register hidden functions on the `window` of the iframe Storybook uses for stories:
 
 ```js
-// .storybook/config.js
+// .storybook/config.js (v5) or .storybook/preview.js (v6)
 import 'cypress-storybook/react'
 ```
 
@@ -55,7 +67,7 @@ describe('Button', () => {
     // This does not refresh the page, but will unmount any previous story and use the Storybook Router API to render a fresh new story
     cy.loadStory('Button', 'Text')
   })
-  
+
   it('should change the knob', () => {
     // first parameter is the name of the knob
     // second parameter is the value of the knob
