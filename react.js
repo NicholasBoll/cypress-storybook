@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom'
  *
  * See https://gist.github.com/davidjrice/9d2af51100e41c6c4b4a
  */
-export const sanitize = (string) => {
+export function sanitize(string) {
   return (
     string
       .toLowerCase()
@@ -20,11 +20,15 @@ export const sanitize = (string) => {
   )
 }
 
-const sanitizeSafe = (string, part) => {
+function sanitizeSafe(string, part) {
   const sanitized = sanitize(string)
   if (sanitized === '') {
     throw new Error(
-      `Invalid ${part} '${string}', must include alphanumeric characters`
+      'Invalid ' +
+        part +
+        " '" +
+        string +
+        "', must include alphanumeric characters"
     )
   }
   return sanitized
@@ -35,8 +39,9 @@ const sanitizeSafe = (string, part) => {
  * This is a copy from https://github.com/storybookjs/csf/blob/next/src/index.ts
  * to be able to support storybook 6.x since they moved toId from storybook/router to storybook/csf
  */
-export const toId = (kind, name) =>
-  `${sanitizeSafe(kind, 'kind')}--${sanitizeSafe(name, 'name')}`
+export function toId(kind, name) {
+  return sanitizeSafe(kind, 'kind') + '--' + sanitizeSafe(name, 'name')
+}
 
 function setCurrentStory(categorization, story) {
   clearCurrentStory()
