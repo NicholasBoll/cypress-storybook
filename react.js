@@ -1,7 +1,9 @@
+import ReactDOM from 'react-dom'
+
 import { forceReRender } from '@storybook/react'
 import addons from '@storybook/addons'
 import Events from '@storybook/core-events'
-import ReactDOM from 'react-dom'
+import { EVENT_ID } from '@storybook/addon-actions'
 
 /**
  * Remove punctuation and illegal characters from a story ID.
@@ -56,6 +58,8 @@ function setCurrentStory(categorization, story) {
 function clearCurrentStory() {
   var root = document.querySelector('#root')
   ReactDOM.unmountComponentAtNode(root)
+
+  window.__actions = {}
 }
 
 function changeKnob(changedKnob) {
@@ -64,6 +68,17 @@ function changeKnob(changedKnob) {
   // force story to rerender with updated knob
   forceReRender()
 }
+
+addons.getChannel().addListener(EVENT_ID, function (action) {
+  if (!window.__actions[action.data.name] && window.Cypress) {
+    window.__actions[action.data.name] = window.Cypress.sinon.spy()
+  }
+
+  window.__actions[action.data.name](action.data.args)
+})
+
+// Collect actions emitted by storybook/addon-actions
+window.___actions = {}
 
 window.__setCurrentStory = setCurrentStory
 window.__changeKnob = changeKnob

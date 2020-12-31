@@ -44,6 +44,18 @@ describe('Button', () => {
         cy.get('#clicked').should('contain', 'clicked!')
       })
 
+      it('should fire a click action', () => {
+        cy.storyAction('click').should('be.called')
+      })
+
+      it('should fire a click action only once, clearing previous calls', () => {
+        cy.storyAction('click').should('be.calledOnce')
+      })
+
+      it('should fire a click action with args', () => {
+        cy.storyAction('click').should('be.calledWith', ['foo', 'bar'])
+      })
+
       context('when the Button/Text story is re-rendered', () => {
         beforeEach(() => {
           cy.loadStory('Button', 'Text')
@@ -51,6 +63,10 @@ describe('Button', () => {
 
         it('should reset all state', () => {
           cy.get('button').should('not.contain', 'clicked')
+        })
+
+        it('should reset all spies', () => {
+          cy.storyAction('click').should('not.be.called')
         })
       })
     })

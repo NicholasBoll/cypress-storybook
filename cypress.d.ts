@@ -25,5 +25,13 @@ declare namespace Cypress {
      * @param value Value of the knob. The type is not checked, so make sure it is valid for your story
      */
     changeKnob(name: string, value: any): Cypress.Chainable<null>
+
+    /**
+     * Retrieve a spy of a given action by name
+     * @param name The name as passed into the `action` function. E.g. `click` for `action('click')('foo')`.
+     * @example
+     * cy.storyAction('click').should('have.been.called')
+     */
+    storyAction(name: string): Cypress.Chainable<sinon.SinonSpy>
   }
 }

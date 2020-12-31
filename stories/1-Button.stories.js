@@ -6,7 +6,7 @@ import { Button } from '@storybook/react/demo'
 export default {
   title: 'Button',
   component: Button,
-  decorators: [withKnobs]
+  decorators: [withKnobs],
 }
 
 export const Text = () => {
@@ -16,6 +16,7 @@ export const Text = () => {
     <React.Fragment>
       <Button
         onClick={() => {
+          action('click')('foo', 'bar')
           setClicked(true)
         }}
       >

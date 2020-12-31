@@ -1,8 +1,8 @@
-## Cypress Storybook
+# Cypress Storybook
 
 This library contains helper methods to integrate Cypress and Storybook. It contains helpful Cypress commands for loading stories in a way that doesn't require a full reload of the application, allowing tests/specifications to be run much faster.
 
-### Installation
+## Installation
 
 ```
 npm install cypress-storybook --save-dev
@@ -10,7 +10,7 @@ npm install cypress-storybook --save-dev
 
 Once installed, both Cypress and Storybook need to be configured in order to work. Storybook installation will be based on the type.
 
-#### Cypress
+### Cypress
 
 The following will add the Cypress commands to be available to Cypress spec files:
 
@@ -31,7 +31,7 @@ If running these tests as part of a CI process, this base url will have to point
 
 If your project has Cypress tests for both Storybook and true end-to-end, you may have to use separate `cypress.json` files for each environment that you're running. Cypress commands allow you to specify which config file: https://docs.cypress.io/guides/guides/command-line.html#cypress-open. For example, you may need to do something like `cypress open --config-file cypress-storybook.json`. You can alias this in an `npm` script like `npm run cypress:storybook:open`.
 
-#### React Storybook
+### React Storybook
 
 The following will set up the Storybook app to understand the Cypress commands. It will register hidden functions on the `window` of the iframe Storybook uses for stories:
 
@@ -40,7 +40,7 @@ The following will set up the Storybook app to understand the Cypress commands. 
 import 'cypress-storybook/react'
 ```
 
-### Use
+## Use
 
 Storybook is a great tool for developing UI. It encourages separation of UI development from backend development. It also encourages building smaller components. Cypress can be used to test or specify behavior of these components. Many examples on the web show loading the main Storybook application and using Cypress to click through the navigation to enable the proper story. The issue with this approach is the story is in an iframe, which is much more difficult to work with. Storybook comes with a router that allows you to visit the story directly. If you expand a story to a full screen, you'll see the URL. It contains something like `iframe.html?id=button--text`.
 
@@ -48,7 +48,40 @@ This library works by loading the `iframe.html` which is blank since no story ha
 
 This library only works if Stories don't leave behind some global state. It is recommended that your stories provide their own state. If you use a global store like Redux, be sure that each story has its own store provider so that the store is created for each story.
 
-Knobs are also supported. It is possible to create a story where all properties are knob imports and change those inputs during a test.
+### Knobs
+
+Knobs are supported. It is possible to create a story where all properties are knob imports and change those inputs during a test. Changing a knob will refresh the story clearing any previous changes to the story. Be sure to change knobs at the start of a test.
+
+Example:
+
+```js
+cy.changeKnob('buttonText', 'New Text Value')
+```
+
+### Actions
+
+The action addon is supported and will return Sinon Spies. Any assertion that can be made against a Sinon spy can be made against an action. The arguments of the action will be the arguments passed in when `action` is called. For example:
+
+```js
+// in a story
+export MyStory = () => {
+  return (
+    <>
+      <button id="button1" onClick={action('click1')}>Button 1</button>
+      <button id="button2" onClick={() => action('click2')('foo')}>Button 2</button>
+    </>
+  )
+}
+
+// in a test
+it('should trigger the action', () => {
+  cy.get('#button1').click()
+  cy.storyAction('click1').should('have.been.called') // called with a click event
+
+  cy.get('#button2').click()
+  cy.storyAction('click2').should('have.been.calledWith', 'foo') // called with arguments passed
+})
+```
 
 An example Cypress file might look like this:
 
@@ -67,17 +100,23 @@ describe('Button', () => {
     // This does not refresh the page, but will unmount any previous story and use the Storybook Router API to render a fresh new story
     cy.loadStory('Button', 'Text')
   })
-  
+
   it('should change the knob', () => {
     // first parameter is the name of the knob
     // second parameter is the value of the knob
     cy.changeKnob('buttonText', 'New Text Value')
     cy.get('button').should('have.text', 'New Text Value')
   })
+
+  it('should fire the click action', () => {
+    cy.get('button').click()
+    // first parameter is the action name - returns a spy for assertions
+    cy.storyAction('click').should('have.been.called')
+  })
 })
 ```
 
-### Typescript Support
+## Typescript Support
 
 This project contains type definitions. If your project uses Typescript and the `cypress/support/commands` file is a `*.ts` file and the `cypress/tsconfig.json` was set up to include all TS files in the `cypress` directory, nothing additional needs to be done to get type definitions in Cypress files. If the type definitions are not automatically set up for you, you'll have to add the following to the TS config file:
 
