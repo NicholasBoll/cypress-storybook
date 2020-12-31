@@ -2,7 +2,7 @@
   "name": "cypress-storybook",
   "version": "0.3.0",
   "description": "Cypress commands for Storybook projects",
-  "main": "index.js",
+  "main": "cypress.js",
   "scripts": {
     "test": "cypress run",
     "start": "npm run storybook",
