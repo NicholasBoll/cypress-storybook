@@ -1,3 +1,7 @@
+### 0.4.0
+
+- feat: Forward cy.visit options from cy.visitStorybook
+
 ## 0.3.0
 
 - feat: Add support for the Actions addon
