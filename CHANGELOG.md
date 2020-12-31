@@ -1,3 +1,7 @@
+## 0.3.0
+
+- feat: Add support for the Actions addon
+
 ## 0.2.3
 
 - fix: Update functions and strings for IE compat (#15)
