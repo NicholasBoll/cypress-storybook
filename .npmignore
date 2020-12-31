@@ -1,3 +1,7 @@
 cypress
 stories
 cypress.json
+.storybook
+.vscode
+.prettierrc.json
+.github
