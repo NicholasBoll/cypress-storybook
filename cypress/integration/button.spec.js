@@ -82,3 +82,12 @@ describe('Button', () => {
     })
   })
 })
+
+describe('visitStorybook options', () => {
+  it('should pass through options to cy.visit', () => {
+    const spy = cy.spy()
+    cy.visitStorybook({ onBeforeLoad: spy }).then(() => {
+      expect(spy).to.have.been.called
+    })
+  })
+})
