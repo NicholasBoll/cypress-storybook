@@ -6,7 +6,7 @@ declare namespace Cypress {
      * Visit the blank test page. This should be in a `before` block of every test page. This command will load the iframe.html
      * file. It is meant to be used with `cy.loadStory`
      */
-    visitStorybook(): Cypress.Chainable<Window>
+    visitStorybook(options?: Partial<VisitOptions>): Cypress.Chainable<Window>
 
     /**
      * Load a story. This will invoke the storybook router,
