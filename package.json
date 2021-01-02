@@ -6,7 +6,8 @@
   "scripts": {
     "test": "cypress run",
     "start": "npm run storybook",
-    "storybook": "start-storybook -p 6006",
+    "storybook:angular": "start-storybook -p 6007 -c .storybook/angular",
+    "storybook:react": "start-storybook -p 6006 -c .storybook/react",
     "build-storybook": "build-storybook"
   },
   "keywords": [
