@@ -1,7 +1,9 @@
-cypress
-stories
-cypress.json
-.storybook
+.github
 .vscode
 .prettierrc.json
-.github
+
+cypress
+cypress.json
+
+angular
+react

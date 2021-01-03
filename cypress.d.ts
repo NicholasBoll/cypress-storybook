@@ -27,6 +27,13 @@ declare namespace Cypress {
     changeKnob(name: string, value: any): Cypress.Chainable<null>
 
     /**
+     * Change an Arg of your story. Useful for testing permutations of a story without creating unique ones.
+     * @param name Name of the Arg provided in the story
+     * @param value Value of the Arg. The type is not checked, so make sure it is valid for your story
+     */
+    changeArg(name: string, value: any): Cypress.Chainable<null>
+
+    /**
      * Retrieve a spy of a given action by name
      * @param name The name as passed into the `action` function. E.g. `click` for `action('click')('foo')`.
      * @example

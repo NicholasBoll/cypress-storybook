@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { action } from '@storybook/addon-actions'
 import { text, withKnobs } from '@storybook/addon-knobs'
 import { Button } from '@storybook/react/demo'
@@ -6,6 +7,7 @@ import { Button } from '@storybook/react/demo'
 export default {
   title: 'Button',
   component: Button,
+  argTypes: { onClick: { action: 'clicked' } },
   decorators: [withKnobs],
 }
 
@@ -31,7 +33,15 @@ export const Text = () => {
 export const Emoji = () => (
   <Button onClick={action('clicked')}>
     <span role="img" aria-label="so cool">
-      😀 😎 👍 💯
+      Emoji 😀 😎 👍 💯
     </span>
   </Button>
 )
+
+const Template = (props) => <Button {...props} />
+
+export const Controls = Template.bind({})
+Controls.args = {
+  primary: true,
+  children: 'Button',
+}

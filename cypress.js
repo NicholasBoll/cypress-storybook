@@ -58,6 +58,33 @@ Cypress.Commands.add('changeKnob', (name, value) => {
   return null
 })
 
+Cypress.Commands.add('changeArg', (name, value) => {
+  const log = Cypress.log({
+    name: 'Arg',
+    message: [name, value],
+    $el: Cypress.$('#root'),
+  })
+
+  log.snapshot('before')
+
+  const win = cy.state('window')
+  const now = performance.now()
+
+  const obj = { [name]: value }
+  win.__changeArg(obj)
+
+  log.set('consoleProps', () => ({
+    name,
+    value,
+    time: performance.now() - now,
+  }))
+
+  log.snapshot('after')
+  log.end()
+
+  return null
+})
+
 Cypress.Commands.add('storyAction', (name) => {
   const win = cy.state('window')
 

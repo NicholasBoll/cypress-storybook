@@ -1,0 +1,16 @@
+{
+  "name": "ng-ui",
+  "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
+    "storybook": "npm run docs:json && node node_modules/@storybook/angular/bin/index.js -p 6007",
+    "build-storybook": "npm run docs:json && build-storybook"
+  },
+  "private": true,
+  "dependencies": {}
+}

@@ -3,32 +3,39 @@
 
 describe('loadStorybook', () => {
   before(() => {
+    Cypress.config('baseUrl', 'http://localhost:6007')
     cy.visitStorybook()
   })
 
   it('should load the right story', () => {
-    cy.loadStory('Button', 'Text')
-    cy.get('button').should('contain', 'Hello Button')
+    cy.loadStory('Example/Button', 'Primary')
+    cy.get('button').should('contain', 'Primary')
+  })
+
+  it('should load the another story', () => {
+    cy.loadStory('Example/Button', 'Secondary')
+    cy.get('button').should('contain', 'Secondary')
   })
 
   it('should reset any knobs', () => {
-    cy.loadStory('Button', 'Text')
-    cy.get('#knob').should('contain', 'Default Knob')
+    cy.loadStory('Example/Button', 'Knobs')
+    cy.get('button').should('contain', 'Button')
     cy.changeKnob('text', 'Changed Text')
-    cy.get('#knob').should('contain', 'Changed Text')
+    cy.get('button').should('contain', 'Changed Text')
     cy.loadStory('Button', 'Text')
-    cy.get('#knob').should('contain', 'Default Knob')
+    cy.get('button').should('contain', 'Button')
   })
 })
 
 describe('Button', () => {
   before(() => {
+    Cypress.config('baseUrl', 'http://localhost:6007')
     cy.visitStorybook()
   })
 
   context('given the Button/Text story is rendered', () => {
     beforeEach(() => {
-      cy.loadStory('Button', 'Text')
+      cy.loadStory('Example/Button', 'Knobs')
     })
 
     it('should render a button', () => {
@@ -38,10 +45,6 @@ describe('Button', () => {
     context('when the button is clicked', () => {
       beforeEach(() => {
         cy.get('button').click()
-      })
-
-      it('should update the button text to include "clicked"', () => {
-        cy.get('#clicked').should('contain', 'clicked!')
       })
 
       it('should fire a click action', () => {
@@ -70,24 +73,31 @@ describe('Button', () => {
         })
       })
     })
+  })
 
-    context('when the knob is changed to "Test"', () => {
+  context('when the Button/Controls story is rendered', () => {
+    beforeEach(() => {
+      cy.loadStory('Example/Button', 'Primary')
+    })
+
+    context('when the control is changed to "Test"', () => {
       beforeEach(() => {
-        cy.changeKnob('text', 'Test')
+        cy.changeArg('label', 'Test')
       })
 
-      it('should update the #knob element text to "test"', () => {
-        cy.get('#knob').should('contain', 'Test')
+      it('should update the text element to "Test"', () => {
+        cy.get('button').should('contain', 'Test')
       })
     })
-  })
-})
 
-describe('visitStorybook options', () => {
-  it('should pass through options to cy.visit', () => {
-    const spy = cy.spy()
-    cy.visitStorybook({ onBeforeLoad: spy }).then(() => {
-      expect(spy).to.have.been.called
+    context('when the button is clicked', () => {
+      beforeEach(() => {
+        cy.get('button').click()
+      })
+
+      it('should fire the clicked action once', () => {
+        cy.storyAction('onClick').should('have.been.calledOnce')
+      })
     })
   })
 })

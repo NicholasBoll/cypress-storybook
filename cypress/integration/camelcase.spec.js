@@ -4,7 +4,7 @@ describe('loadStory', () => {
   })
 
   it('can load camel cased story names', () => {
-    cy.loadStory('CamelCase/CamelCase', 'CamelCase');
-    cy.contains('This is a CamelCased story');
-  });
-});
+    cy.loadStory('CamelCase/CamelCase', 'CamelCase')
+    cy.contains('This is a CamelCased story')
+  })
+})

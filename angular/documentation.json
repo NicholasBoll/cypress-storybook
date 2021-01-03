@@ -1,0 +1,415 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [
+        {
+            "name": "ButtonService",
+            "id": "injectable-ButtonService-39a0fc33cb8f2a668c5bcc6907896f4a",
+            "file": "projects/button/src/lib/button.service.ts",
+            "properties": [],
+            "methods": [],
+            "description": "",
+            "sourceCode": "import { Injectable } from '@angular/core';\n\n@Injectable({\n  providedIn: 'root'\n})\nexport class ButtonService {\n\n  constructor() { }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "args": [],
+                "line": 6
+            },
+            "type": "injectable"
+        }
+    ],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "ButtonComponent",
+            "id": "component-ButtonComponent-642c6c4e474cd5a0ac760dfda26b2fc9",
+            "file": "stories/button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "storybook-button",
+            "styleUrls": [
+                "./button.css"
+            ],
+            "styles": [],
+            "template": "<button   type=\"button\"\n   (click)=\"onClick.emit($event)\"\n   [ngClass]=\"classes\"\n   [ngStyle]=\"{ 'background-color': backgroundColor }\"\n >\n   {{ label }}\n </button>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "backgroundColor",
+                    "description": "<p>What background color to use</p>\n",
+                    "line": 26,
+                    "type": "string"
+                },
+                {
+                    "name": "label",
+                    "defaultValue": "'Button'",
+                    "description": "<p>Button contents</p>\n",
+                    "line": 40
+                },
+                {
+                    "name": "primary",
+                    "defaultValue": "false",
+                    "description": "<p>Is this the principal call to action on the page?</p>\n",
+                    "line": 20
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "'medium'",
+                    "description": "<p>How large should the button be?</p>\n",
+                    "line": 32,
+                    "type": "\"small\" | \"medium\" | \"large\""
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "onClick",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "description": "<p>Optional click handler</p>\n",
+                    "line": 46,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Output, EventEmitter } from '@angular/core';\n\n@Component({\n  selector: 'storybook-button',\n  template: ` <button\n    type=\"button\"\n    (click)=\"onClick.emit($event)\"\n    [ngClass]=\"classes\"\n    [ngStyle]=\"{ 'background-color': backgroundColor }\"\n  >\n    {{ label }}\n  </button>`,\n  styleUrls: ['./button.css'],\n})\nexport default class ButtonComponent {\n  /**\n   * Is this the principal call to action on the page?\n   */\n  @Input()\n  primary = false;\n\n  /**\n   * What background color to use\n   */\n  @Input()\n  backgroundColor?: string;\n\n  /**\n   * How large should the button be?\n   */\n  @Input()\n  size: 'small' | 'medium' | 'large' = 'medium';\n\n  /**\n   * Button contents\n   *\n   * @required\n   */\n  @Input()\n  label = 'Button';\n\n  /**\n   * Optional click handler\n   */\n  @Output()\n  onClick = new EventEmitter<Event>();\n\n  public get classes(): string[] {\n    const mode = this.primary ? 'storybook-button--primary' : 'storybook-button--secondary';\n\n    return ['storybook-button', `storybook-button--${this.size}`, mode];\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".storybook-button {\n  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;\n  font-weight: 700;\n  border: 0;\n  border-radius: 3em;\n  cursor: pointer;\n  display: inline-block;\n  line-height: 1;\n}\n.storybook-button--primary {\n  color: white;\n  background-color: #1ea7fd;\n}\n.storybook-button--secondary {\n  color: #333;\n  background-color: transparent;\n  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;\n}\n.storybook-button--small {\n  font-size: 12px;\n  padding: 10px 16px;\n}\n.storybook-button--medium {\n  font-size: 14px;\n  padding: 11px 20px;\n}\n.storybook-button--large {\n  font-size: 16px;\n  padding: 12px 24px;\n}\n",
+                    "styleUrl": "./button.css"
+                }
+            ],
+            "stylesData": "",
+            "accessors": {
+                "classes": {
+                    "name": "classes",
+                    "getSignature": {
+                        "name": "classes",
+                        "type": "[]",
+                        "returnType": "string[]",
+                        "line": 48
+                    }
+                }
+            }
+        },
+        {
+            "name": "ButtonComponent",
+            "id": "component-ButtonComponent-d87baf16ac8da912ea4e74305ab889f7-1",
+            "file": "projects/button/src/lib/button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ui-button",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<button [disabled]=\"disabled\">{{ text }}</button>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "disabled",
+                    "line": 10,
+                    "type": "boolean"
+                },
+                {
+                    "name": "text",
+                    "line": 9,
+                    "type": "string"
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core'\n\n@Component({\n  selector: 'ui-button',\n  template: ` <button [disabled]=\"disabled\">{{ text }}</button> `,\n})\nexport class ButtonComponent {\n  @Input()\n  text!: string\n  @Input() disabled!: boolean\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "isDuplicate": true,
+            "duplicateId": 1,
+            "duplicateName": "ButtonComponent-1"
+        }
+    ],
+    "modules": [
+        {
+            "name": "ButtonModule",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "ButtonComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "context",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/button/src/test.ts",
+                "type": "",
+                "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+            },
+            {
+                "name": "Large",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "require",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/button/src/test.ts",
+                "type": "literal type"
+            },
+            {
+                "name": "Secondary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Small",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Button.stories.ts",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "stories/Button.stories.ts",
+                "type": "Story<Button>",
+                "defaultValue": "(args: Button) => ({\n  component: Button,\n  props: args,\n})"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "projects/button/src/test.ts": [
+                {
+                    "name": "context",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/button/src/test.ts",
+                    "type": "",
+                    "defaultValue": "require.context('./', true, /\\.spec\\.ts$/)"
+                },
+                {
+                    "name": "require",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/button/src/test.ts",
+                    "type": "literal type"
+                }
+            ],
+            "stories/Button.stories.ts": [
+                {
+                    "name": "Large",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Secondary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Small",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Button.stories.ts",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "stories/Button.stories.ts",
+                    "type": "Story<Button>",
+                    "defaultValue": "(args: Button) => ({\n  component: Button,\n  props: args,\n})"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": [],
+    "coverage": {
+        "count": 8,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "projects/button/src/lib/button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/button/src/lib/button.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "ButtonService",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/button/src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "context",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/button/src/test.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "require",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Large",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Secondary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Small",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/Button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "stories/button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonComponent",
+                "coveragePercent": 83,
+                "coverageCount": "5/6",
+                "status": "very-good"
+            }
+        ]
+    }
+}
