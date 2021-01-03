@@ -8,7 +8,7 @@ This library contains helper methods to integrate Cypress and Storybook. It cont
 npm install cypress-storybook --save-dev
 ```
 
-Once installed, both Cypress and Storybook need to be configured in order to work. Storybook installation will be based on the type.
+Once installed, both Cypress and Storybook need to be configured in order to work. Storybook installation will be based on the framework used (React and Angular are currently supported).
 
 ### Cypress
 
@@ -19,25 +19,36 @@ The following will add the Cypress commands to be available to Cypress spec file
 import 'cypress-storybook/cypress'
 ```
 
-Make sure your `baseUrl` in the `cypress.json` is pointing to your Storybook. For development, this will most likely be `http://localhost:9001`.
+Make sure your `baseUrl` in the `cypress.json` is pointing to your Storybook. For development, this will most likely be `http://localhost:6006`.
 
 ```json
 {
-  "baseUrl": "http://localhost:9001"
+  "baseUrl": "http://localhost:6006"
 }
 ```
 
-If running these tests as part of a CI process, this base url will have to point to whereever the CI can reach the Storybook page.
+If running these tests as part of a CI process, this base url will have to point to where ever the CI can reach the Storybook page.
 
 If your project has Cypress tests for both Storybook and true end-to-end, you may have to use separate `cypress.json` files for each environment that you're running. Cypress commands allow you to specify which config file: https://docs.cypress.io/guides/guides/command-line.html#cypress-open. For example, you may need to do something like `cypress open --config-file cypress-storybook.json`. You can alias this in an `npm` script like `npm run cypress:storybook:open`.
 
-### React Storybook
+### Storybook
+
+There are adapters for different frameworks. Currently React and Angular are supported.
 
 The following will set up the Storybook app to understand the Cypress commands. It will register hidden functions on the `window` of the iframe Storybook uses for stories:
+
+### React Storybook
 
 ```js
 // .storybook/config.js (v5) or .storybook/preview.js (v6)
 import 'cypress-storybook/react'
+```
+
+### Angular Storybook
+
+```js
+// .storybook/config.js (v5) or .storybook/preview.js (v6)
+import 'cypress-storybook/angular'
 ```
 
 ## Use
@@ -47,6 +58,16 @@ Storybook is a great tool for developing UI. It encourages separation of UI deve
 This library works by loading the `iframe.html` which is blank since no story has been specified. Stories are later mounted using the Storybook routing API to unmount and mount/remount stories by their identifiers. Loading stories does not require a refresh of the Story page (`iframe.html`). The previous story is unmounted from the DOM and the next story is requested from the Storybook router API. Mounting a story takes milliseconds compared to seconds of reloading the entire page. This allows for faster tests.
 
 This library only works if Stories don't leave behind some global state. It is recommended that your stories provide their own state. If you use a global store like Redux, be sure that each story has its own store provider so that the store is created for each story.
+
+### Controls/Args
+
+Args are supported. It is possible to use Args where all properties are controls. Changing an Arg will automatically update a story. Controls implicitly use the Actions addon (see Actions below).
+
+Example:
+
+```js
+cy.changeArg('buttonText', 'New Text Value')
+```
 
 ### Knobs
 
@@ -64,11 +85,15 @@ The action addon is supported and will return Sinon Spies. Any assertion that ca
 
 ```js
 // in a story
-export MyStory = () => {
+export const MyStory = () => {
   return (
     <>
-      <button id="button1" onClick={action('click1')}>Button 1</button>
-      <button id="button2" onClick={() => action('click2')('foo')}>Button 2</button>
+      <button id="button1" onClick={action('click1')}>
+        Button 1
+      </button>
+      <button id="button2" onClick={() => action('click2')('foo')}>
+        Button 2
+      </button>
     </>
   )
 }
@@ -81,6 +106,30 @@ it('should trigger the action', () => {
   cy.get('#button2').click()
   cy.storyAction('click2').should('have.been.calledWith', 'foo') // called with arguments passed
 })
+```
+
+Actions using Args:
+
+```js
+// Story
+export default {
+  title: 'Button',
+  component: Button,
+  argTypes: { onClick: { action: 'clicked' } },
+}
+
+const Template = (props) => <Button {...props} />
+
+export const Controls = Template.bind({})
+Controls.args = {
+  children: 'Button',
+}
+
+// Cypress
+it('should trigger the action', () => {
+  cy.get('button').click()
+  cy.storyAction('clicked').should('have.been.called')
+}
 ```
 
 An example Cypress file might look like this:
@@ -105,6 +154,13 @@ describe('Button', () => {
     // first parameter is the name of the knob
     // second parameter is the value of the knob
     cy.changeKnob('buttonText', 'New Text Value')
+    cy.get('button').should('have.text', 'New Text Value')
+  })
+
+  it('should change the Arg', () => {
+    // first parameter is the name of the Arg
+    // second parameter is the value of the Arg
+    cy.changeArg('buttonText', 'New Text Value')
     cy.get('button').should('have.text', 'New Text Value')
   })
 

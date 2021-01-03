@@ -1,16 +1,8 @@
-import ReactDOM from 'react-dom'
-
-import { forceReRender } from '@storybook/react'
+import { forceReRender } from '@storybook/angular'
 
 import { setCurrentStory, changeKnob } from './common'
 
-function clearCurrentStory() {
-  var root = document.querySelector('#root')
-  ReactDOM.unmountComponentAtNode(root)
-}
-
 window.__setCurrentStory = function (categorization, story) {
-  clearCurrentStory()
   setCurrentStory(categorization, story)
   forceReRender()
 }
