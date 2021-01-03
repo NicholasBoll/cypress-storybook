@@ -1,3 +1,10 @@
+### 0.5.0
+
+- feat: Add Args support and Angular support (#20)
+
+Fixes #19
+Fixes #13
+
 ### 0.4.0
 
 - feat: Forward cy.visit options from cy.visitStorybook
