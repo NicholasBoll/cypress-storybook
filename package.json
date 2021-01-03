@@ -1,6 +1,6 @@
 {
   "name": "cypress-storybook",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Cypress commands for Storybook projects",
   "main": "cypress.js",
   "scripts": {
