@@ -68,7 +68,10 @@ export function changeArg(updatedArgs) {
   console.log(updatedArgs)
   addons
     .getChannel()
-    .emit(Events.UPDATE_STORY_ARGS, { storyId: window.__storyId, updatedArgs })
+    .emit(Events.UPDATE_STORY_ARGS, {
+      storyId: window.__storyId,
+      updatedArgs: updatedArgs,
+    })
 }
 
 addons
