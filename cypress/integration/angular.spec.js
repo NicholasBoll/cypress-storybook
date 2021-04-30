@@ -81,12 +81,13 @@ describe('Button', () => {
     })
 
     context('when the control is changed to "Test"', () => {
-      beforeEach(() => {
-        cy.changeArg('label', 'Test')
+      it('should update the text element to "Test"', () => {
+        cy.changeArg('children', 'Test')
+        cy.get('button').should('contain', 'Test')
       })
 
-      it('should update the text element to "Test"', () => {
-        cy.get('button').should('contain', 'Test')
+      it('should appropriately reset args between story loads', () => {
+        cy.get('button').should('contain', 'Button')
       })
     })
 

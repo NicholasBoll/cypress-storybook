@@ -50,6 +50,10 @@ function resetKnobs() {
   addons.getChannel().emit('storybookjs/knobs/reset')
 }
 
+function resetArgs(storyId) {
+  addons.getChannel().emit(Events.RESET_STORY_ARGS, { storyId, storyId })
+}
+
 export function setCurrentStory(categorization, story) {
   resetKnobs()
   resetActions()
@@ -57,6 +61,7 @@ export function setCurrentStory(categorization, story) {
   addons.getChannel().emit(Events.SET_CURRENT_STORY, {
     storyId: window.__storyId,
   })
+  resetArgs(window.__storyId)
   addons.getChannel().emit('storybookjs/knobs/reset')
 }
 
@@ -66,12 +71,10 @@ export function changeKnob(changedKnob) {
 
 export function changeArg(updatedArgs) {
   console.log(updatedArgs)
-  addons
-    .getChannel()
-    .emit(Events.UPDATE_STORY_ARGS, {
-      storyId: window.__storyId,
-      updatedArgs: updatedArgs,
-    })
+  addons.getChannel().emit(Events.UPDATE_STORY_ARGS, {
+    storyId: window.__storyId,
+    updatedArgs: updatedArgs,
+  })
 }
 
 addons
