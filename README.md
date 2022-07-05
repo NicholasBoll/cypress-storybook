@@ -129,7 +129,7 @@ Controls.args = {
 it('should trigger the action', () => {
   cy.get('button').click()
   cy.storyAction('clicked').should('have.been.called')
-}
+})
 ```
 
 An example Cypress file might look like this:
