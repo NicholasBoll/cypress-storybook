@@ -183,3 +183,7 @@ This project contains type definitions. If your project uses Typescript and the 
   }
 }
 ```
+
+## Cypress 12+
+
+Starting in Cypress 12, the default value for testIsolation was changed to true. In order for this library to use a before block to visit storybook a single time, you will need to update your `cypress.config.ts` file to include `testIsolation: false` under the e2e block.
