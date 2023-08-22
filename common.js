@@ -1,4 +1,4 @@
-import addons from '@storybook/addons'
+import { addons } from '@storybook/preview-api'
 import Events from '@storybook/core-events'
 
 // Collect actions emitted by storybook/addon-actions
