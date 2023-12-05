@@ -1,5 +1,5 @@
-import { forceReRender } from '@storybook/angular'
-
+import { addons } from '@storybook/preview-api'
+import { FORCE_RE_RENDER } from '@storybook/core-events'
 import { setCurrentStory, changeKnob } from './common'
 
 window.__setCurrentStory = function (categorization, story) {
@@ -12,4 +12,8 @@ window.__changeKnob = function (changedKnob) {
 
   // force story to rerender with updated knob
   forceReRender()
+}
+
+function forceReRender() {
+  addons.getChannel().emit(FORCE_RE_RENDER)
 }

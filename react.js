@@ -1,8 +1,8 @@
 import ReactDOM from 'react-dom'
 
-import { forceReRender } from '@storybook/react'
-
 import { setCurrentStory, changeKnob } from './common'
+import { addons } from '@storybook/preview-api'
+import { FORCE_RE_RENDER } from '@storybook/core-events'
 
 function clearCurrentStory() {
   var root = document.querySelector('#root')
@@ -20,4 +20,8 @@ window.__changeKnob = function (changedKnob) {
 
   // force story to rerender with updated knob
   forceReRender()
+}
+
+function forceReRender() {
+  addons.getChannel().emit(FORCE_RE_RENDER)
 }
