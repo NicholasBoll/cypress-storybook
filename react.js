@@ -5,7 +5,7 @@ import { addons } from '@storybook/preview-api'
 import { FORCE_RE_RENDER } from '@storybook/core-events'
 
 function clearCurrentStory() {
-  var root = document.querySelector('#root')
+  var root = document.querySelector('#storybook-root')
   ReactDOM.unmountComponentAtNode(root)
 }
 
