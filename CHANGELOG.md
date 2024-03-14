@@ -1,3 +1,11 @@
+### 1.0.0
+
+- Storybook 7 support
+- Upgrade Angular to v16
+
+Fixes #64
+Fixes #46
+
 ### 0.5.0
 
 - feat: Add Args support and Angular support (#20)
